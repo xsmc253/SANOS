@@ -33,12 +33,114 @@
             -webkit-backdrop-filter: blur(10px);
             z-index: 100;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+        }
+        
+        /* 抽屉图标 */
+        .drawer-toggle {
+            background: none;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 24px;
+            height: 18px;
+            padding: 0;
+            margin-right: 15px;
+        }
+        
+        .drawer-toggle span {
+            display: block;
+            width: 100%;
+            height: 2px;
+            background-color: black;
+            transition: all 0.3s ease;
         }
         
         .navbar h1 {
             color: black;
             font-size: 1.2rem;
             font-weight: bold;
+            flex: 1;
+        }
+        
+        /* 抽屉菜单 */
+        .drawer {
+            position: fixed;
+            top: 0;
+            left: -250px;
+            width: 250px;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            box-shadow: 2px 0 15px rgba(0, 0, 0, 0.15);
+            transition: left 0.3s ease;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .drawer.open {
+            left: 0;
+        }
+        
+        .drawer-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.3);
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .drawer-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        /* 抽屉标题 */
+        .drawer-title {
+            padding: 25px 20px 15px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            margin-bottom: 10px;
+        }
+        
+        .drawer-title h2 {
+            color: black;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        
+        /* 抽屉菜单项 */
+        .drawer-menu {
+            list-style: none;
+            padding: 0;
+            flex: 1;
+        }
+        
+        .drawer-menu li {
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        
+        .drawer-menu a {
+            display: block;
+            padding: 18px 20px;
+            color: #333;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            font-size: 1rem;
+        }
+        
+        .drawer-menu a:hover {
+            background-color: rgba(0, 0, 0, 0.03);
+            padding-left: 25px;
         }
         
         /* 主内容区域 */
@@ -81,6 +183,7 @@
             transition: all 0.3s ease;
             border: none;
             cursor: pointer;
+            margin: 10px;
         }
         
         .download-btn:hover {
@@ -158,6 +261,12 @@
             border-radius: 8px;
         }
         
+        /* 群号样式 */
+        .qq-group {
+            margin: 15px 0;
+            font-size: 1.1rem;
+        }
+        
         /* 页脚 */
         footer {
             text-align: center;
@@ -171,8 +280,32 @@
 <body>
     <!-- 顶部导航栏 -->
     <div class="navbar">
+        <!-- 抽屉图标 -->
+        <button class="drawer-toggle" id="drawerToggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        
         <h1>SAN OS虚拟机系统</h1>
     </div>
+    
+    <!-- 抽屉菜单 -->
+    <div class="drawer" id="drawer">
+        <!-- 抽屉标题 -->
+        <div class="drawer-title">
+            <h2>抽屉</h2>
+        </div>
+        
+        <!-- 抽屉菜单项 -->
+        <ul class="drawer-menu">
+            <li><a href="#" id="homeLink">主页</a></li>
+            <li><a href="https://xsmc253.github.io/SANOS/yhxy.html" target="_blank" id="agreementLink">用户协议</a></li>
+        </ul>
+    </div>
+    
+    <!-- 抽屉遮罩层 -->
+    <div class="drawer-overlay" id="drawerOverlay"></div>
     
     <div class="container">
         <!-- 主标题区域 -->
@@ -196,7 +329,7 @@
                 </div>
                 <div class="feature">
                     <h3>简单好用</h3>
-                    <p>虚拟机自带软件较少，但为流畅和体积减少大部分无用功能，只为制作最精简最好用的虚拟机 </p>
+                    <p>虚拟机自带软件较少，但为流畅和体积减少大部分无用功能，只为制作最精简最好用的虚拟机</p>
                 </div>
                 <div class="feature">
                     <h3>功能性</h3>
@@ -230,19 +363,27 @@
         
         <!-- QQ群区域 -->
         <section class="section community" id="community">
-            <h1>立即体验<h1>
+            <h1>立即体验</h1>
             <h3>下载虚拟机</h3>
-            <p>进入QQ群看群公告下载，请手动加入群聊</p>
-            <h3>六群：241972819<h3>
-            <h3>五群：253269706<h3>
-            <h3>四群：782516222<h3>
-            <h3>三群：712620934<h3>
-            <h3>二群：2154012479<h3>
-            <h3>一群：906551358<h3>
-        <section class="section community" id="community">
-            <h1>联系我们<h1>
-            <h3>QQ：478722102<h3>
-            <h3>邮箱：xsmc253@outlook.com<h3>
+            <p>进入QQ群看群公告下载</p>
+            
+            <!-- 添加的跳转QQ按钮 -->
+            <a href="https://qm.qq.com/q/MSN0N6uYkG" class="download-btn" target="_blank">点我跳转QQ群</a>
+            
+            <p>手动加群↓</p>
+            <div class="qq-group">六群：241972819</div>
+            <div class="qq-group">五群：253269706</div>
+            <div class="qq-group">四群：782516222</div>
+            <div class="qq-group">三群：712620934</div>
+            <div class="qq-group">二群：2154012479</div>
+            <div class="qq-group">一群：906551358</div>
+        </section>
+        
+        <!-- 联系我们区域 -->
+        <section class="section community" id="contact">
+            <h1>联系我们</h1>
+            <div class="qq-group">QQ：478722102</div>
+            <div class="qq-group">邮箱：xsmc253@outlook.com</div>
         </section>
     </div>
     
@@ -251,7 +392,49 @@
     </footer>
     
     <script>
-        document.getElementById('downloadBtn').addEventListener('click', function() {
+        // 抽屉菜单控制
+        const drawerToggle = document.getElementById('drawerToggle');
+        const drawer = document.getElementById('drawer');
+        const drawerOverlay = document.getElementById('drawerOverlay');
+        const homeLink = document.getElementById('homeLink');
+        const agreementLink = document.getElementById('agreementLink');
+        const downloadBtn = document.getElementById('downloadBtn');
+        
+        // 打开/关闭抽屉
+        function toggleDrawer() {
+            drawer.classList.toggle('open');
+            drawerOverlay.classList.toggle('active');
+        }
+        
+        // 关闭抽屉
+        function closeDrawer() {
+            drawer.classList.remove('open');
+            drawerOverlay.classList.remove('active');
+        }
+        
+        // 点击抽屉图标
+        drawerToggle.addEventListener('click', toggleDrawer);
+        
+        // 点击遮罩层关闭抽屉
+        drawerOverlay.addEventListener('click', closeDrawer);
+        
+        // 点击主页链接 - 滚动到页面顶部并关闭抽屉
+        homeLink.addEventListener('click', function(e) {
+            e.preventDefault();
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+            closeDrawer();
+        });
+        
+        // 点击用户协议链接 - 新标签页打开，关闭抽屉
+        agreementLink.addEventListener('click', function() {
+            closeDrawer();
+        });
+        
+        // 下载按钮滚动到QQ群区域
+        downloadBtn.addEventListener('click', function() {
             document.getElementById('community').scrollIntoView({
                 behavior: 'smooth'
             });
@@ -259,4 +442,3 @@
     </script>
 </body>
 </html>
-<code_end>
