@@ -281,4 +281,157 @@
     <!-- 顶部导航栏 -->
     <div class="navbar">
         <!-- 抽屉图标 -->
-        <button class="draw
+        <button class="drawer-toggle" id="drawerToggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        
+        <h1>SAN OS虚拟机系统</h1>
+    </div>
+    
+    <!-- 抽屉菜单 -->
+    <div class="drawer" id="drawer">
+        <!-- 抽屉标题 -->
+        <div class="drawer-title">
+            <h2>抽屉</h2>
+        </div>
+        
+        <!-- 抽屉菜单项 -->
+        <ul class="drawer-menu">
+            <li><a href="#" id="homeLink">主页</a></li>
+            <li><a href="https://xsmc253.github.io/SANOS/yhxy.html" target="_blank" id="agreementLink">用户协议</a></li>
+        </ul>
+    </div>
+    
+    <!-- 抽屉遮罩层 -->
+    <div class="drawer-overlay" id="drawerOverlay"></div>
+    
+    <div class="container">
+        <!-- 主标题区域 -->
+        <section class="section hero">
+            <h2>SAN OS虚拟机</h2>
+            <p>最适合你的轻度优化安卓虚拟机</p>
+            <button class="download-btn" id="downloadBtn">下载系统</button>
+        </section>
+                
+        <!-- 特性介绍区域 -->
+        <section class="section features">
+            <h1>为什么选择SAN OS？</h1>
+            <div class="features-container">
+                <div class="feature">
+                    <h3>系统稳定流畅</h3>
+                    <p>对系统进行中度精简，使其运行速度加快，开机只需要10秒</p>
+                </div>
+                <div class="feature">
+                    <h3>多平台适配</h3>
+                    <p>适配主流虚拟机平台，有VMOSPro、光速虚拟机、虚拟大师版本，同时更新同时适配</p>
+                </div>
+                <div class="feature">
+                    <h3>简单好用</h3>
+                    <p>虚拟机自带软件较少，但为流畅和体积减少大部分无用功能，只为制作最精简最好用的虚拟机</p>
+                </div>
+                <div class="feature">
+                    <h3>功能性</h3>
+                    <p>拥有magisk、应用双开，隐藏环境等自带功能，让您的体验更好</p>
+                </div>
+                <div class="feature">
+                    <h3>用户口碑</h3>
+                    <p>拥有3000+用户，用户评价较好，口碑较好</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 图片展示区域 -->
+        <section class="section image-showcase">
+            <h2>系统界面预览</h2>
+            <div class="gallery">
+                <div class="gallery-item">
+                    <img src="https://cdn.jsdelivr.net/gh/xsmc253/SANOS/zy.jpg" alt="桌面" loading="lazy">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://cdn.jsdelivr.net/gh/xsmc253/SANOS/gy.jpg" alt="关于本机" loading="lazy">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://cdn.jsdelivr.net/gh/xsmc253/SANOS/ct.jpg" alt="所有应用" loading="lazy">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://cdn.jsdelivr.net/gh/xsmc253/SANOS/mj.jpg" alt="面具" loading="lazy">
+                </div>
+            </div>
+        </section>
+        
+        <!-- QQ群区域 -->
+        <section class="section community" id="community">
+            <h1>立即体验</h1>
+            <h3>下载虚拟机</h3>
+            <p>进入QQ频道看置顶下载</p>
+            
+            <!-- 添加的跳转QQ按钮 -->
+            <a href="https://pd.qq.com/s/5rktdi2j3" class="download-btn" target="_blank">点我跳转QQ频道</a>
+            
+        </section>
+        
+        <!-- 联系我们区域 -->
+        <section class="section community" id="contact">
+            <h1>联系我们</h1>
+            <div class="qq-group">QQ：478722102</div>
+            <div class="qq-group">邮箱：xsmc253@outlook.com</div>
+        </section>
+    </div>
+    
+    <footer>
+        2024-2026 SAN OS虚拟机系统
+    </footer>
+    
+    <script>
+        // 抽屉菜单控制
+        const drawerToggle = document.getElementById('drawerToggle');
+        const drawer = document.getElementById('drawer');
+        const drawerOverlay = document.getElementById('drawerOverlay');
+        const homeLink = document.getElementById('homeLink');
+        const agreementLink = document.getElementById('agreementLink');
+        const downloadBtn = document.getElementById('downloadBtn');
+        
+        // 打开/关闭抽屉
+        function toggleDrawer() {
+            drawer.classList.toggle('open');
+            drawerOverlay.classList.toggle('active');
+        }
+        
+        // 关闭抽屉
+        function closeDrawer() {
+            drawer.classList.remove('open');
+            drawerOverlay.classList.remove('active');
+        }
+        
+        // 点击抽屉图标
+        drawerToggle.addEventListener('click', toggleDrawer);
+        
+        // 点击遮罩层关闭抽屉
+        drawerOverlay.addEventListener('click', closeDrawer);
+        
+        // 点击主页链接 - 滚动到页面顶部并关闭抽屉
+        homeLink.addEventListener('click', function(e) {
+            e.preventDefault();
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+            closeDrawer();
+        });
+        
+        // 点击用户协议链接 - 新标签页打开，关闭抽屉
+        agreementLink.addEventListener('click', function() {
+            closeDrawer();
+        });
+        
+        // 下载按钮滚动到QQ群区域
+        downloadBtn.addEventListener('click', function() {
+            document.getElementById('community').scrollIntoView({
+                behavior: 'smooth'
+            });
+        });
+    </script>
+</body>
+</html>
